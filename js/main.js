@@ -7,11 +7,18 @@ $(document).ready(function () {
 
     $("td", ".gaming").on("click", placeChar);
 
+    showCurrentPlayer();
+    
 });
 
 function placeChar() {
-    $(this).text(currentPlayer);
-    changePlayer();
+    const td = $(this);
+
+    if (td.text() === "") {
+
+        td.text(currentPlayer);
+        changePlayer();
+    }
 }
 
 function changePlayer() {
@@ -20,4 +27,14 @@ function changePlayer() {
     } else {
         currentPlayer = playerX;
     }
+    showCurrentPlayer();
+
+
+    // [ternary if]
+    // currentPlayer = (currentPlayer === playerX) ? playerO : playerX
 }
+
+function showCurrentPlayer() {
+    $("#currentPlayer").text(currentPlayer);
+}
+
