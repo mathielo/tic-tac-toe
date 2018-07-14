@@ -1,0 +1,7 @@
+.current-turn {
+    font-size: 28px;
+}
+
+.gaming td:hover {
+    background-color: lightblue;
+}
