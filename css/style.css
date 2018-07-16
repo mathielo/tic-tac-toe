@@ -3,7 +3,7 @@
 }
 
 .gaming td:hover {
-    background-color: #17a2b8;
+    background-color: #007c89;
 }
 
 .gaming td {
@@ -14,10 +14,16 @@
     user-select: none;
 }
 
+h1 {
+    color: #fff;
+
+}
+
 .jumbotron {
     padding: 15px;
     border-radius: 20px;
     background-color: #17a2b8;
+    color: #0a4852;
 }
 
 .td-style {
@@ -27,4 +33,9 @@
 .badge {
     font-size: 90%;
     line-height: 1.2;
+    color: #0a4852;
+}
+
+.reset-btn {
+    color: #0a4852;
 }
