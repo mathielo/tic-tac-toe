@@ -10,18 +10,31 @@ $(document).ready(function() {
 
     $(".reset-btn").on("click", resetGame);
 
-    $("td").on("click", checkWinner);
-
 });
 
 function placeChar() {
     const td = $(this);
 
     if (td.text() === "") {
-
         td.text(currentPlayer);
-        changePlayer();
-        // checkVictory();
+        // console.log('checkWinnerRows', checkWinnerRows());
+        // console.log('checkWinnerCols', checkWinnerCols());
+        // console.log('checkWinnerDiags', checkWinnerDiags());
+        console.log(
+            'Rows',
+            checkWinnerRows(),
+            'Cols',
+            checkWinnerCols(),
+            'Diags',
+            checkWinnerDiags()
+        );
+
+        if (isGameWon()) {
+            console.log('Game won by player ', currentPlayer);
+        } else {
+            changePlayer();
+        }
+
     }
 
 }
@@ -43,47 +56,117 @@ function showCurrentPlayer() {
     $("#currentPlayer").text(currentPlayer);
 }
 
-function checkWinner() {
-    let input = $("td");
+function checkWinnerRows() {
+    let isGameWon = false;
+    const rows = 3;
+    const cols = 3;
 
-    let inp0 = input.eq(0).text();
-    let inp1 = input.eq(1).text();
-    let inp2 = input.eq(2).text();
-    let inp3 = input.eq(3).text();
-    let inp4 = input.eq(4).text();
-    let inp5 = input.eq(5).text();
-    let inp6 = input.eq(6).text();
-    let inp7 = input.eq(7).text();
-    let inp8 = input.eq(8).text();
+    // Verifying if any rows has a winner
+    // r = row
+    for(let r = 0; r < rows; r++) {
+        // String Interpolation:
+        // 'number '+ r +' here' === `number ${r} here`
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+        const $cols = $('td', `tr:eq(${r})`);
 
-    let line1 = input.eq(1, 2, 3).text();
-    let line2 = input.eq(3, 4, 5).text();
-    let line3 = input.eq(6, 7, 8).text();
+        let previousChar = null;
+        let isStreak = true;
 
-    let col1 = input.eq(0, 3, 6).text();
-    let col2 = input.eq(1, 4, 7).text();
-    let col3 = input.eq(2, 5, 8).text();
+        for(let c = 0; c < cols; c++) {
+            const char = $cols.eq(c).text();
 
-    let diag1 = input.eq(0, 4, 8).text();
-    let diag2 = input.eq(2, 4, 6).text();
+            if (char === "") {
+                isStreak = false;
+            }
 
-    if (inp0 === inp1 && inp1 === inp2 && line1 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp3 === inp4 && inp4 === inp5 && line2 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp6 === inp7 && inp7 === inp8 && line3 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp0 === inp3 && inp3 === inp6 && col1 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp1 === inp4 && inp4 === inp7 && col2 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp2 === inp5 && inp5 === inp8 && col3 !== "") {
-        alert("Winner: "+ this.innerText);
-    } else if (inp0 === inp4 && inp4 === inp8 && diag1 !== "") {
-        alert("Winner: " + this.innerText);
-    } else if (inp2 === inp4 && inp4 === inp6 && diag2 !== "") {
-        alert("Winner: "+ this.innerText);
+            if (c > 0) {
+                isStreak = isStreak && char === previousChar;
+            }
+
+            if (c === 0) {
+                previousChar = char;
+            }
+        }
+
+        if (isStreak) {
+            isGameWon = true;
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break
+            break;
+        }
     }
+
+    return isGameWon;
+}
+
+function checkWinnerCols() {
+    let isGameWon = false;
+    const rows = 3;
+    const cols = 3;
+
+    for(let c = 0; c < cols; c++) {
+        const $cols = $(`td:eq(${c})`, '.gaming tr');
+
+        let previousChar = null;
+        let isStreak = true;
+
+        for(let r = 0; r < rows; r++) {
+            const char = $cols.eq(r).text();
+
+            if (char === "") {
+                isStreak = false;
+            }
+
+            if (r > 0) {
+                isStreak = isStreak && char === previousChar;
+            }
+
+            if (r === 0) {
+                previousChar = char;
+            }
+        }
+    
+        if (isStreak) {
+            isGameWon = true;
+            break;
+        }
+    }
+
+    return isGameWon;
+}
+
+function checkWinnerDiags() {
+    function checkMatchingByStep(start, step) {
+        const $tds = $('td', '.gaming');
+
+        let previousChar = null;
+        let isStreak = true;
+
+        for(let i = start; i <= start + step * 2; i += step) {
+            const char = $tds.eq(i).text();
+
+            if (char === "") {
+                isStreak = false;
+            }
+
+            if (i > start) {
+                isStreak = isStreak && char === previousChar;
+            }
+
+            if (i === start) {
+                previousChar = char;
+            }
+        }
+
+        return isStreak;
+    }
+
+    return checkMatchingByStep(0, 4) || checkMatchingByStep(2, 2);
+}
+
+function isGameWon() {
+    return checkWinnerRows()
+        || checkWinnerCols()
+        || checkWinnerDiags();
 }
 
 function resetGame() {
