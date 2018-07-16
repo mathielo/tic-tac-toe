@@ -3,5 +3,28 @@
 }
 
 .gaming td:hover {
-    background-color: lightblue;
+    background-color: #17a2b8;
+}
+
+.gaming td {
+    height: 120px;
+    width: 120px;
+    text-align: center;
+    font-size: 32px;
+    user-select: none;
+}
+
+.jumbotron {
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #17a2b8;
+}
+
+.td-style {
+    border-radius: 25px;
+}
+
+.badge {
+    font-size: 90%;
+    line-height: 1.2;
 }

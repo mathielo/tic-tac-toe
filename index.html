@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
 
@@ -16,33 +16,33 @@
 </head>
 <body>
 
-    <div class="jumbotron" align="center">
-        <h2>tic-tac-toe</h2>
-    </div>
-
     <div class="container-fluid">
-        <div class="alert alert-info current-turn" role="alert" align="center">
-            Current Turn: <span class="badge badge-pill badge-warning" id="currentPlayer"></span>
+
+        <div class="jumbotron offset-sm-3 col-sm-6 offset-2 col-8" align="center">
+            <h1>tic-tac-toe</h1>
+            <hr>
+            <h3>Current Turn: <span class="badge badge-pill badge-warning" id="currentPlayer"></span></h3>
+            <input type="button" value="Reset" class="btn badge-pill btn-warning reset-btn">
         </div>
     </div>
 
-    <table class="gaming" border="3" cellpadding="50" align="center">
+    <table class="gaming" align="center">
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
         </tr>
 
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
         </tr>
 
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
+            <td  class="btn-info td-style"></td>
         </tr>
 
     </table>
